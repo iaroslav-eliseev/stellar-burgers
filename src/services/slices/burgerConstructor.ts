@@ -19,7 +19,9 @@ const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   selectors: {
-    getConstructorState: (state) => state
+    constructorItemsState: (state) => state.constructorItems,
+    orderModalState: (state) => state.orderModalData,
+    orderRequestState: (state) => state.orderRequest
   },
   reducers: {
     addBun: (state, action) => {
@@ -82,7 +84,8 @@ const burgerConstructorSlice = createSlice({
   }
 });
 
-export const { getConstructorState } = burgerConstructorSlice.selectors;
+export const { constructorItemsState, orderModalState, orderRequestState } =
+  burgerConstructorSlice.selectors;
 export const {
   addBun,
   addIngredient,

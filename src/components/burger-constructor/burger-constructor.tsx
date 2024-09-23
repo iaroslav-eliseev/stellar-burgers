@@ -3,9 +3,11 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  getConstructorState,
+  constructorItemsState,
+  orderModalState,
   orderBurger,
-  clearConstructor
+  clearConstructor,
+  orderRequestState
 } from '../../services/slices/burgerConstructor';
 import { AppDispatch } from 'src/services';
 import { getUserState } from '../../services/slices/user';
@@ -13,8 +15,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { constructorItems, orderRequest, orderModalData } =
-    useSelector(getConstructorState);
+  // const { constructorItems, orderRequest, orderModalData } =
+  //   useSelector(ConstructorItemsState);
+  const constructorItems = useSelector(constructorItemsState);
+  const orderModalData = useSelector(orderModalState);
+  const orderRequest = useSelector(orderRequestState);
   const { user } = useSelector(getUserState);
   const navigate = useNavigate();
 

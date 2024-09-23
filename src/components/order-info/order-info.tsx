@@ -15,9 +15,6 @@ export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
   const orderData = orderByNumberResponse;
 
-  console.log(orderByNumberResponse);
-  console.log(params.number);
-
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
