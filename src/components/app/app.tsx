@@ -30,11 +30,11 @@ const App = () => {
     dispatch(getIngredients());
     dispatch(getUser());
   }, []);
+
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes location={pageState || location}>
-        <Route path='*' element={<NotFound404 />} />
+      <Routes location={pageState}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<Login />} />
@@ -44,37 +44,37 @@ const App = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path='/profile/orders' element={<ProfileOrders />} />
       </Routes>
-      {pageState && (
-        <Routes>
-          <Route
-            path='/feed/:number'
-            element={
-              <Modal title='' onClose={() => history.back()}>
+
+      <Routes>
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal title='' onClose={() => history.back()}>
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal title='Детали ингредиента' onClose={() => history.back()}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <Modal title='Заказы' onClose={() => history.back()}>
                 <OrderInfo />
               </Modal>
-            }
-          />
-          <Route
-            path='/ingredients/:id'
-            element={
-              <Modal title='Детали ингредиента' onClose={() => history.back()}>
-                <IngredientDetails />
-              </Modal>
-            }
-          />
-
-          <Route
-            path='/profile/orders/:number'
-            element={
-              <ProtectedRoute>
-                <Modal title='Заказы' onClose={() => history.back()}>
-                  <OrderInfo />
-                </Modal>
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      )}
+            </ProtectedRoute>
+          }
+        />
+        <Route path='*' element={<NotFound404 />} />
+      </Routes>
     </div>
   );
 };
