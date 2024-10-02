@@ -35,7 +35,6 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
       <Routes location={pageState}>
-        <Route path='*' element={<NotFound404 />} />
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<Login />} />
@@ -74,6 +73,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
     </div>
   );
