@@ -15,26 +15,23 @@ import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // const { constructorItems, orderRequest, orderModalData } =
-  //   useSelector(ConstructorItemsState);
   const constructorItems = useSelector(constructorItemsState);
   const orderModalData = useSelector(orderModalState);
   const orderRequest = useSelector(orderRequestState);
   const { user } = useSelector(getUserState);
   const navigate = useNavigate();
 
-  const onOrderClick = () => {
+  const onOrderClick = async () => {
     if (!constructorItems.bun || orderRequest) return;
     if (user) {
       const bun = constructorItems.bun._id;
-      dispatch(
+      await dispatch(
         orderBurger([
           bun,
           ...constructorItems.ingredients.map((i) => i._id),
           bun
         ])
       );
-      dispatch(clearConstructor());
     } else {
       navigate('/login');
     }
