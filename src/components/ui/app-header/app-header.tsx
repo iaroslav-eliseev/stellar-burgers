@@ -10,7 +10,7 @@ import {
 import { NavLink } from 'react-router-dom';
 
 export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
-  const [isActive, setIsActive] = React.useState([false, false, false]);
+  const [isActive, setIsActive] = React.useState([true, false, false]);
 
   return (
     <header className={styles.header}>

@@ -35,7 +35,6 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
       <Routes location={pageState}>
-        <Route path='*' element={<NotFound404 />} />
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<Login />} />
@@ -44,13 +43,46 @@ const App = () => {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route path='/*' element={<NotFound404 />} />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal title='Детали ингредиента' onClose={() => history.back()}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal
+              title={`#${location.pathname.match(/\d+/)}`}
+              onClose={() => history.back()}
+            >
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <Modal title='Заказы' onClose={() => history.back()}>
+                <OrderInfo />
+              </Modal>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       <Routes>
         <Route
           path='/feed/:number'
           element={
-            <Modal title='' onClose={() => history.back()}>
+            <Modal
+              title={`#${location.pathname.match(/\d+/)}`}
+              onClose={() => history.back()}
+            >
               <OrderInfo />
             </Modal>
           }
